@@ -1,0 +1,32 @@
+[
+    {
+        "user_id": "user123",
+        "name": "Aditya Suhane",
+        "hashed_password": "5f4dcc3b5aa765d61d8327deb882cf99",
+        "tickets_booked": [
+            {
+                "ticket_id": "ticket001",
+                "source": "CityA",
+                "destination": "CityB",
+                "date_of_journey": "2023-10-15",
+                "train": {
+                    "train_id": "T123",
+                    "train_number": "EXP123",
+                    "train_name": "Express Line",
+                    "departure_time": "10:00 AM",
+                    "arrival_time": "02:00 PM",
+                    "seats": [[0,0,0],[0,1,0],[1,0,0],[1,1,1]],
+                    "stations": ["CityA", "CityC", "CityB"],
+                    "station_times": {
+                        "CityA": "10:00 AM",
+                        "CityC": "12:00 PM",
+                        "CityB": "02:00 PM"
+                    }
+
+                }
+
+            }       
+        ]
+
+    }
+]
