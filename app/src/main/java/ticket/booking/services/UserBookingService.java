@@ -1,20 +1,18 @@
 package ticket.booking.services;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-
 import com.fasterxml.jackson.core.exc.StreamReadException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import ticket.booking.entities.User;
-import ticket.booking.Utils.UserSrevicesUtil;
+import ticket.booking.entities.Ticket;
+import ticket.booking.Utils.UserServicesUtil;
 public class UserBookingService {
     private User user;
-    private static final String USER_PATH = "../localDB/user.json";
+    private static final String USER_PATH = "app/src/main/java/ticket/booking/localDB/user.json";
     private List<User>userList;
 
 
@@ -70,7 +68,7 @@ public class UserBookingService {
 
     public Boolean loginUser(){
         Optional<User> foundUser=userList.stream().filter(user1->{
-            return user1.getName().equals(user.getName()) && UserSrevicesUtil.checkPassword(user.getPassword(), user1.getHashpassword());
+            return user1.getName().equals(user.getName()) && UserServicesUtil.checkPassword(user.getPassword(), user1.getHashpassword());
         }).findFirst();
         return foundUser.isPresent();
     }
@@ -85,4 +83,57 @@ public class UserBookingService {
             return Boolean.FALSE;
         }
     }
+
+
+    public Boolean bookTicket(Ticket ticket, String trainId, int row, int col) {
+        try {
+            TrainService trainService = new TrainService();
+            if (trainService.bookSeat(trainId, row, col)) {
+                user.addTicket(ticket);
+                Optional<User> userInList = userList.stream()
+                    .filter(u -> u.getUserId().equals(user.getUserId()))
+                    .findFirst();
+                if (userInList.isPresent()) {
+                    userInList.get().addTicket(ticket);
+                    saveUsersToFile();
+                    return Boolean.TRUE;
+                }
+            }
+            return Boolean.FALSE;
+        } catch (IOException ex) {
+            return Boolean.FALSE;
+        }
+    }
+
+    public Boolean cancelTicket(String ticketId, String trainId, int row, int col) {
+        try {
+            TrainService trainService = new TrainService();
+            Optional<Ticket> ticketToRemove = user.getTicketbooked().stream()
+                .filter(t -> t.getTicketId().equals(ticketId))
+                .findFirst();
+
+            if (ticketToRemove.isPresent() && trainService.cancelSeat(trainId, row, col)) {
+                user.removeTicket(ticketToRemove.get());
+                Optional<User> userInList = userList.stream()
+                    .filter(u -> u.getUserId().equals(user.getUserId()))
+                    .findFirst();
+                if (userInList.isPresent()) {
+                    userInList.get().removeTicket(ticketToRemove.get());
+                    saveUsersToFile();
+                    return Boolean.TRUE;
+                }
+            }
+            return Boolean.FALSE;
+        } catch (IOException ex) {
+            return Boolean.FALSE;
+        }
+    }
+
+    public List<Ticket> fetchBooking() {
+        Optional<User> userInList = userList.stream()
+            .filter(u -> u.getUserId().equals(user.getUserId()))
+            .findFirst();
+        return userInList.map(User::getTicketbooked).orElse(null);
+    }
+
 }

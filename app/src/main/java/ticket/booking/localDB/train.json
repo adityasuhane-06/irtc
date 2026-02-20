@@ -1,0 +1,30 @@
+[
+    {
+        "train_id": "T123",
+        "train_number": "EXP123",
+        "train_name": "Express Line",
+        "departure_time": "10:00 AM",
+        "arrival_time": "02:00 PM",
+        "seats": [[0,0,0],[0,0,0],[0,0,0],[0,0,0]],
+        "stations": ["CityA", "CityC", "CityB"],
+        "station_times": {
+            "CityA": "10:00 AM",
+            "CityC": "12:00 PM",
+            "CityB": "02:00 PM"
+        }
+    },
+    {
+        "train_id": "T456",
+        "train_number": "RAP456",
+        "train_name": "Rapid Transit",
+        "departure_time": "08:00 AM",
+        "arrival_time": "12:00 PM",
+        "seats": [[0,0,0],[0,0,0],[0,0,0],[0,0,0]],
+        "stations": ["CityA", "CityD", "CityB"],
+        "station_times": {
+            "CityA": "08:00 AM",
+            "CityD": "10:00 AM",
+            "CityB": "12:00 PM"
+        }
+    }
+]

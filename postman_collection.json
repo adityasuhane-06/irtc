@@ -1,0 +1,190 @@
+{
+  "info": {
+    "name": "Train Ticket Booking API",
+    "description": "REST API for train ticket booking system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Sign Up",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"john_doe\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/signup",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "auth", "signup"]
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"john_doe\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "auth", "login"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Trains",
+      "item": [
+        {
+          "name": "Search Trains",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/trains/search?source=CityA&destination=CityB",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "trains", "search"],
+              "query": [
+                {
+                  "key": "source",
+                  "value": "CityA"
+                },
+                {
+                  "key": "destination",
+                  "value": "CityB"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Train by ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/trains/T123",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "trains", "T123"]
+            }
+          }
+        },
+        {
+          "name": "Get Available Seats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/trains/T123/seats",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "trains", "T123", "seats"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bookings",
+      "item": [
+        {
+          "name": "Book Ticket",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"user_abc12345\",\n  \"trainId\": \"T123\",\n  \"source\": \"CityA\",\n  \"destination\": \"CityB\",\n  \"row\": 0,\n  \"col\": 0\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/bookings/book",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "bookings", "book"]
+            }
+          }
+        },
+        {
+          "name": "Get User Bookings",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/bookings/user/user_abc12345",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "bookings", "user", "user_abc12345"]
+            }
+          }
+        },
+        {
+          "name": "Cancel Ticket",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/bookings/cancel?ticketId=ticket_xyz78901&userId=user_abc12345&trainId=T123&row=0&col=0",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "bookings", "cancel"],
+              "query": [
+                {
+                  "key": "ticketId",
+                  "value": "ticket_xyz78901"
+                },
+                {
+                  "key": "userId",
+                  "value": "user_abc12345"
+                },
+                {
+                  "key": "trainId",
+                  "value": "T123"
+                },
+                {
+                  "key": "row",
+                  "value": "0"
+                },
+                {
+                  "key": "col",
+                  "value": "0"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

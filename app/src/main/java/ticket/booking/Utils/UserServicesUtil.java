@@ -2,7 +2,7 @@ package ticket.booking.Utils;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class UserSrevicesUtil {
+public class UserServicesUtil {
     public static String hashPassword(String password){
 
         return BCrypt.hashpw(password,BCrypt.gensalt());
